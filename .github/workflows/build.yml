@@ -18,6 +18,12 @@ jobs:
           sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev
           pip install buildozer cython==0.29.36
 
+      - name: Accept Android SDK licenses
+        run: |
+          mkdir -p ~/.android
+          echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > ~/.android/repositories.cfg
+          yes | sdkmanager --licenses || true
+
       - name: Build with Buildozer
         run: buildozer -v android debug
         env:
